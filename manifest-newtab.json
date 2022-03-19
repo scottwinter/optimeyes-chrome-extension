@@ -6,13 +6,10 @@
   "background": {
     "service_worker": "background.js"
   },
-  "content_scripts": [
-    {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["contentscript.js"]
-    }
-  ],
-  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "chrome_url_overrides" : {
+    "newtab": "newtab.html"
+  },
+  "permissions": ["storage", "activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
