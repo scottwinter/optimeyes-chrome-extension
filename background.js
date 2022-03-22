@@ -1,3 +1,11 @@
+chrome.webRequest.onBeforeRequest.addListener(function(details) { 
+    return {cancel: true}; 
+},
+{urls: ["*://*.google.com/*"]},
+["blocking"]);
+
+
+
 // chrome.tabs.onUpdated.addListener(
 //     function(tabId, changeInfo, tab) {
 //       // read changeInfo data and do something with it
