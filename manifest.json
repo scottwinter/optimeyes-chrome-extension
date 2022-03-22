@@ -8,8 +8,8 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["contentscript.js"]
+      "js": ["contentscript.js"],
+      "matches": ["http://*/*", "https://*/*"]      
     }
   ],
   "permissions": ["storage", "activeTab", "scripting", "tabs"],
