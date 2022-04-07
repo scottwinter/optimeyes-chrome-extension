@@ -1,0 +1,8 @@
+html {
+  width: 400px;
+}
+
+.container {
+  box-sizing: border-box;
+  padding: 10px;
+}

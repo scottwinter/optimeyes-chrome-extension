@@ -4,11 +4,11 @@
   "version": "1.0",
   "manifest_version": 3,
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "scripts/background.js"
   },
   "content_scripts": [
     {
-      "js": ["contentscript.js"],
+      "js": ["scripts/contentscript.js"],
       "matches": ["http://*/*", "https://*/*"]      
     }
   ],

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Focus Timer</title>
   </head>
   <body>
@@ -16,9 +16,17 @@
     </nav>    
     <div class="container">
       <div class="h2" id="focusMessage">Start focus time</div>
+      <div id="testelement"><a href="settings.html">Settings</a>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Focus Mode</label>
+      </div>
       <div>Focus time ends in <span id="time">01:00</span> minutes!</div>
       <button type="button" class="btn btn-primary" id="StartTimer">Start timer</button>
+      <button type="button" class="btn btn-primary" id="StopTimer">Stop timer</button>
+      <button type="button" class="btn btn-secondary" id="settings">Settings</button>
     </div>
-	  <script src="popup.js"></script>
+	  <script src="scripts/popup.js"></script>
   </body>
 </html>
