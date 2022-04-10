@@ -19,6 +19,16 @@ let distance;
 
 let focusEnabled = false;
 
+/* 
+TODO save focusEnabled in local storage instead of background.js.  
+Then in background.js, set the focusEnabled value in storage to false every time extension loads.
+That way when the extension loads when the browser is opened, the value will be set back
+to false so focus mode does not remain on after brower closing.
+
+Need to test this out to see if it will work or if it will reset the focusEnabled to false ever
+time the background scripe wakes up again.
+*/
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     if (request.cmd === 'TOGGLE_FOCUS') {       

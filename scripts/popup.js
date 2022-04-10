@@ -42,6 +42,8 @@ let stopTimerButton = document.getElementById("StopTimer");
 stopTimerButton.addEventListener("click", async () => {
     chrome.storage.local.set({countdown: 0});
     clearInterval(currentInterval);
+    focusModeToggle.checked = false;
+    chrome.runtime.sendMessage({ cmd: 'TOGGLE_FOCUS', value : false });
     document.getElementById("time").innerHTML = '1:00';
 });
 
@@ -54,6 +56,8 @@ settingsButton.addEventListener("click", async () => {
 });
 
 function startTimer(countDownDate) {    
+    chrome.runtime.sendMessage({ cmd: 'TOGGLE_FOCUS', value : true });
+    focusModeToggle.checked = true;
     currentInterval = setInterval(function() {
         // Get today's date and time
         let now = new Date().getTime();
@@ -70,6 +74,8 @@ function startTimer(countDownDate) {
         // If the count down is finished, write some text
         if (distance <= 0) {
             clearInterval(currentInterval);
+            chrome.runtime.sendMessage({ cmd: 'TOGGLE_FOCUS', value : false });
+            focusModeToggle.checked = false;
             document.getElementById("time").innerHTML = 'Focus time ended.';
         }
     }, 1000);
