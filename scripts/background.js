@@ -29,6 +29,13 @@ Need to test this out to see if it will work or if it will reset the focusEnable
 time the background scripe wakes up again.
 */
 
+chrome.runtime.onStartup.addListener(function () {
+    /* TODO set focusEnabled back to false when extension/browser loads.
+    Set the false value in local storage.
+    */
+    chrome.storage.local.set({focusEnabled: false});
+});
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     if (request.cmd === 'TOGGLE_FOCUS') {       

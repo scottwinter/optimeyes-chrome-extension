@@ -28,7 +28,6 @@ class UI {
 
         row.innerHTML = `
         <td>${domain.domainName}</td>
-        <td>${domain.domainId}</td>
         <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
         `;
 
@@ -37,7 +36,7 @@ class UI {
 
     static deleteDomain(el) {
         if(el.classList.contains('delete')) {
-        el.parentElement.parentElement.remove();
+            el.parentElement.parentElement.remove();
         }
     }
 
@@ -55,7 +54,7 @@ class UI {
 
     static clearFields() {
         document.querySelector('#domain').value = '';
-        document.querySelector('#domainId').value = '';
+        // document.querySelector('#domainId').value = '';
     }
 }
 
@@ -87,16 +86,16 @@ class Store {
         });      
     }
 
-    static removeDomain(domainId) {
+    static removeDomain(domainName) {
         chrome.storage.local.get(['domainBlocklist'], function(result) {      
             if(result.domainBlocklist === undefined){
-                domains = [new Domain("domain 1", "1")];
+                domains = [];
             } else {
                 domains = result.domainBlocklist;
             }    
             
             domains.forEach((domain, index) => {
-                if(domain.domainId === domainId) {
+                if(domain.domainName === domainName) {
                     domains.splice(index, 1);
                 }
             });
@@ -117,14 +116,26 @@ document.querySelector('#domain-form').addEventListener('submit', (e) => {
 
     // Get form values
     const domainName = document.querySelector('#domain').value;
-    const domainId = document.querySelector('#domainId').value;
+    // const domainId = document.querySelector('#domainId').value;
 
     // Validate
-    if(domainName === '' || domainId === '') {
+    if(domainName === '') {
         UI.showAlert('Please fill in all fields', 'danger');
     } else {
+        // Clean up and format the domain to be saved
+        let domainNameTrim = domainName.trim();
+        let domainWhole = domainNameTrim.replace('http://', '');
+        domainWhole = domainWhole.replace('https://', '');
+        let domainParts = domainWhole.split('.');
+        let domainPart;
+        if(domainParts.length > 2){
+          domainPart = domainParts[1];
+        } else {
+          domainPart = domainParts[0];
+        }
+
         // Instatiate book
-        const domain = new Domain(domainName, domainId);
+        const domain = new Domain(domainPart, null);
 
         // Add Book to UI
         UI.addDomainToList(domain);
@@ -149,21 +160,16 @@ document.querySelector('#domain-list').addEventListener('click', (e) => {
     Store.removeDomain(e.target.parentElement.previousElementSibling.textContent);
 
     // Show success message
-    UI.showAlert('Book Removed', 'success');
+    UI.showAlert('Domain Removed', 'success');
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
+document.querySelector('#clear').addEventListener('click', (e) => {
+    domains = [];
+    chrome.storage.local.set({domainBlocklist: domains}, function() {
+        UI.displayDomains();
+        console.log('List cleared.');
+    });
+});
 
 
 

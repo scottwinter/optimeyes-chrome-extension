@@ -21,23 +21,31 @@ function loadItemsFromStorage() {
       }
       checkFocusStatus();
   });
-
 }
 
-
 function checkFocusStatus() {
-  chrome.runtime.sendMessage({ cmd: 'GET_FOCUS' }, response => {
-    focusEnabled = response.focus;
+  chrome.storage.local.get(['focusEnabled'], function(result) {      
+    if(result.focusEnabled === undefined){
+        focusEnabled = false;
+    } else {
+        focusEnabled = result.focusEnabled;
+    }       
     checkblockedUrls(blockList);
   });
 }
 
 //BLOCK THE ENTIRE DOMAIN WITH THE FOLLOWING FUNCTION
 function checkblockedUrls(blockList){
-
-  chrome.runtime.sendMessage({ cmd: 'GET_FOCUS' }, response => {
-    focusEnabled = response.focus;
+  chrome.storage.local.get(['focusEnabled'], function(result) {      
+    if(result.focusEnabled === undefined){
+        focusEnabled = false;
+    } else {
+        focusEnabled = result.focusEnabled;
+    }       
   });
+  // chrome.runtime.sendMessage({ cmd: 'GET_FOCUS' }, response => {
+  //   focusEnabled = response.focus;
+  // });
 
   if(focusEnabled === true) {
     var current = window.location.hostname;
