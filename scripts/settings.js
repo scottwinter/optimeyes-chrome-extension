@@ -163,13 +163,13 @@ document.querySelector('#domain-list').addEventListener('click', (e) => {
     UI.showAlert('Domain Removed', 'success');
 });
 
-document.querySelector('#clear').addEventListener('click', (e) => {
-    domains = [];
-    chrome.storage.local.set({domainBlocklist: domains}, function() {
-        UI.displayDomains();
-        console.log('List cleared.');
-    });
-});
+// document.querySelector('#clear').addEventListener('click', (e) => {
+//     domains = [];
+//     chrome.storage.local.set({domainBlocklist: domains}, function() {
+//         UI.displayDomains();
+//         console.log('List cleared.');
+//     });
+// });
 
 
 

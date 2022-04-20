@@ -38,8 +38,10 @@ focusModeToggle.addEventListener("click", async () => {
 });
 
 // Button to start the timer
-let timerButton = document.getElementById("StartTimer");
-timerButton.addEventListener("click", async () => {
+let startTimerButton = document.getElementById("StartTimer");
+startTimerButton.addEventListener("click", async () => {
+    startTimerButton.style.display = "none";
+    document.querySelector("#StopTimer").style.display = "inline";
     timerDuration = document.querySelector('#timerDuration').value;
     // let timerText = document.getElementById("testelement");
     // timerText.innerHTML = 'Timer has started.';
@@ -52,6 +54,8 @@ timerButton.addEventListener("click", async () => {
 // Button to stop the timer
 let stopTimerButton = document.getElementById("StopTimer");
 stopTimerButton.addEventListener("click", async () => {
+    stopTimerButton.style.display = "none";
+    document.querySelector("#StartTimer").style.display = "inline";
     chrome.storage.local.set({countdown: 0});
     clearInterval(currentInterval);
     focusModeToggle.checked = false;
@@ -124,7 +128,7 @@ function startOrResumeTimer() {
             startTimer(countDownDate);
         } else {
             // document.getElementById("testelement").innerHTML = 'storage value not set';
-            document.getElementById("time").innerHTML = 'Please start new focus time. ';
+            document.getElementById("time").innerHTML = '0m 0s';
         }
     });
 }
@@ -134,4 +138,12 @@ function setTimerCountDown(minutes) {
     milliseconds = minutes * 60 * 1000;
     countDownDate = new Date().getTime() + milliseconds;
     chrome.storage.local.set({countdown: countDownDate});
+}
+
+function overlayOn() {
+    document.getElementById("overlay").style.display = "block";
+}
+  
+function overlayOff() {
+    document.getElementById("overlay").style.display = "none";
 }
