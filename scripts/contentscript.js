@@ -76,6 +76,8 @@ function checkblockedUrls(blockList){
 
       // TODO Attempt to do a overlay of the blocked website
 
+      
+
       // const el = document.createElement('div');
       // el.setAttribute(
       //   'style',

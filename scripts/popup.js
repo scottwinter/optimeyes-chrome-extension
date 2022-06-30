@@ -2,38 +2,50 @@ let timeRemaining;
 let countDownDate = 0;
 let currentInterval;
 let focusEnabled = false;
+let timerValue;
+let defaultTimerValue = 1;
+
+onPageLoad();
+document.querySelector("#StartTimer")
+
+function onPageLoad() {
+    chrome.storage.local.get(['storedTimerValue'], function(result) {      
+        if(result.storedTimerValue === undefined){
+            timerValue = defaultTimerValue;
+        } else {
+            timerValue = result.storedTimerValue;
+        } 
+        // for testing only
+        // timerValue = defaultTimerValue;
+        displayTimer(timerValue, 0);
+        startOrResumeTimer();
+        checkFocusStatus();   
+    });    
+}
 
 
-startOrResumeTimer();
-
-checkFocusStatus();
-
-let focusModeToggle = document.getElementById("flexSwitchCheckDefault");
+// Check focus status on page load and set UI elements accordingly
 function checkFocusStatus() {
-//   chrome.runtime.sendMessage({ cmd: 'GET_FOCUS' }, response => {
-//     focusEnabled = response.focus;
-//     focusModeToggle.checked = focusEnabled;
-//   });
-
   chrome.storage.local.get(['focusEnabled'], function(result) {      
     if(result.focusEnabled === undefined){
         focusEnabled = false;
     } else {
         focusEnabled = result.focusEnabled;
-    }       
-    focusModeToggle.checked = focusEnabled; 
+    }   
+    updateFocusMode(focusEnabled, false);    
 });     
 }
 
 // Toggle on-demand focus mode
+let focusModeToggle = document.getElementById("focusToggle");
 focusModeToggle.addEventListener("click", async () => {   
     // If the checkbox is checked, display the output text
     if (focusModeToggle.checked == true){
         chrome.storage.local.set({focusEnabled: true});
-        // chrome.runtime.sendMessage({ cmd: 'TOGGLE_FOCUS', value : true });
+        updateFocusMode(true, false)
     } else {
         chrome.storage.local.set({focusEnabled: false});
-        // chrome.runtime.sendMessage({ cmd: 'TOGGLE_FOCUS', value : false });
+        updateFocusMode(false, false)
     }
 });
 
@@ -42,12 +54,7 @@ let startTimerButton = document.getElementById("StartTimer");
 startTimerButton.addEventListener("click", async () => {
     startTimerButton.style.display = "none";
     document.querySelector("#StopTimer").style.display = "inline";
-    timerDuration = document.querySelector('#timerDuration').value;
-    // let timerText = document.getElementById("testelement");
-    // timerText.innerHTML = 'Timer has started.';
-    // document.getElementById("testelement").innerHTML = 'Button clicked';
-    document.getElementById("time").innerHTML = `${timerDuration}m 00s`;
-    setTimerCountDown(timerDuration);
+    setTimerCountDown(timerValue);
     startOrResumeTimer();
 });
 
@@ -58,30 +65,60 @@ stopTimerButton.addEventListener("click", async () => {
     document.querySelector("#StartTimer").style.display = "inline";
     chrome.storage.local.set({countdown: 0});
     clearInterval(currentInterval);
-    focusModeToggle.checked = false;
-    focusModeToggle.disabled = false;
-    // chrome.runtime.sendMessage({ cmd: 'TOGGLE_FOCUS', value : false });
+    updateFocusMode(false, false);  
+    
     chrome.storage.local.set({focusEnabled: false});
+    timerDuration = timerValue;
+    displayTimer(timerDuration, 0);
+});
 
-    timerDuration = document.querySelector('#timerDuration').value;
 
-    document.getElementById("time").innerHTML = `${timerDuration}m 00s`;
+
+// Button to set custom time - 15 minutes
+let minuteButton15 = document.getElementById("15minutes");
+minuteButton15.addEventListener("click", async () => {
+    chrome.storage.local.set({storedTimerValue: 15});
+    onPageLoad();
+    displayTimer(15, 0);
+});
+
+// Button to set custom time - 15 minutes
+let minuteButton30 = document.getElementById("30minutes");
+minuteButton30.addEventListener("click", async () => {
+    chrome.storage.local.set({storedTimerValue: 30});
+    onPageLoad();
+    displayTimer(15, 0);
+});
+
+// Button to set custom time - 15 minutes
+let minuteButton45 = document.getElementById("45minutes");
+minuteButton45.addEventListener("click", async () => {
+    chrome.storage.local.set({storedTimerValue: 45});
+    onPageLoad();
+    displayTimer(15, 0);
+});
+
+// Button to set custom time - 15 minutes
+let minuteButton60 = document.getElementById("60minutes");
+minuteButton60.addEventListener("click", async () => {
+    chrome.storage.local.set({storedTimerValue: 60});
+    onPageLoad();
+    displayTimer(15, 0);
 });
 
 // Settings button
-let settingsButton = document.getElementById("settings");
-settingsButton.addEventListener("click", async () => {
-    chrome.tabs.create({
-        url: 'settings.html'
-      });
-});
+// let settingsButton = document.querySelector("#settings");
+// settingsButton.addEventListener("click", async () => {
+//     chrome.tabs.create({
+//         url: 'settings.html'
+//       });
+// });
 
 function startTimer(countDownDate) {    
-    // chrome.runtime.sendMessage({ cmd: 'TOGGLE_FOCUS', value : true });
     chrome.storage.local.set({focusEnabled: true});
-    focusModeToggle.checked = true;
-    focusModeToggle.disabled = true;
-    focusModeToggle
+    
+    updateFocusMode(true, true);  
+    // focusModeToggle
     currentInterval = setInterval(function() {
         // Get today's date and time
         let now = new Date().getTime();
@@ -93,15 +130,16 @@ function startTimer(countDownDate) {
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Display the result in the element with id="demo"
-        document.getElementById("time").innerHTML = minutes + "m " + seconds + "s ";        
+        displayTimer(minutes, seconds);
 
         // If the count down is finished, write some text
         if (distance <= 0) {
             clearInterval(currentInterval);
-            // chrome.runtime.sendMessage({ cmd: 'TOGGLE_FOCUS', value : false });
             chrome.storage.local.set({focusEnabled: false});
-            focusModeToggle.checked = false;
-            document.getElementById("time").innerHTML = 'Focus time ended.';
+            updateFocusMode(false, false);  
+            displayTimer(timerValue, 0);
+            stopTimerButton.style.display = "none";
+            document.querySelector("#StartTimer").style.display = "inline";
         }
     }, 1000);
 }
@@ -115,6 +153,9 @@ function startOrResumeTimer() {
 
         if (countDownDate > new Date().getTime()) {
 
+            startTimerButton.style.display = "none";
+            document.querySelector("#StopTimer").style.display = "inline";
+
             let now = new Date().getTime();
 
             // Find the distance between now and the count down date
@@ -124,11 +165,10 @@ function startOrResumeTimer() {
             let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Display the result in the element with id="demo"
-            document.getElementById("time").innerHTML = minutes + "m " + seconds + "s ";
+            displayTimer(minutes, seconds);
             startTimer(countDownDate);
         } else {
-            // document.getElementById("testelement").innerHTML = 'storage value not set';
-            document.getElementById("time").innerHTML = '0m 0s';
+            displayTimer(timerValue, 0);
         }
     });
 }
@@ -146,4 +186,36 @@ function overlayOn() {
   
 function overlayOff() {
     document.getElementById("overlay").style.display = "none";
+}
+
+// Utility - Update the focus toggle button and text based on status
+function updateFocusMode(focusStatus, disable) {
+    focusModeToggle.checked = focusStatus;
+    focusModeToggle.disabled = disable;
+    var focusModeStatus = document.querySelector("#focus-status");
+    if(focusStatus === true) {
+        focusModeStatus.innerHTML = "On"
+    } else {
+        focusModeStatus.innerHTML = "Off"
+    }
+}
+
+
+//Utility - 
+function displayTimer(minutes, seconds) {
+    var secondsFormatted;
+        var minutesFormatted;
+        if(seconds < 10) {
+            secondsFormatted = "0"+seconds;
+        } else {
+            secondsFormatted = seconds;
+        }
+
+        if(minutes < 10) {
+            minutesFormatted = "0"+minutes;
+        } else {
+            minutesFormatted = minutes;
+        }
+
+        document.getElementById("timer").innerHTML = minutesFormatted + ":" + secondsFormatted;
 }
