@@ -68,15 +68,19 @@ function checkblockedUrls(blockList){
     });
 
     if(blockMatch === true){
-      document.documentElement.innerHTML = '';
-      document.documentElement.innerHTML = 
-      '<html><head><title>Focus Companion</title></head><body><h1>You are in focus mode</h1>'+
+      var blockPageContents = 
+      '<html><head>'+
+      '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'+
+      '<link rel="stylesheet" href="css/style.css" />'+
+      '<title>Focus Companion</title></head><body><h1>You are in focus mode - With document.write()</h1>'+
       '<p>This site is blocked while in focus mode.  Please get back to work.</p></body></html>';
+
+      document.open();
+      document.write(blockPageContents);
+      document.close();
       document.documentElement.scrollTop = 0;
 
       // TODO Attempt to do a overlay of the blocked website
-
-      
 
       // const el = document.createElement('div');
       // el.setAttribute(

@@ -23,7 +23,6 @@ function onPageLoad() {
     });    
 }
 
-
 // Check focus status on page load and set UI elements accordingly
 function checkFocusStatus() {
   chrome.storage.local.get(['focusEnabled'], function(result) {      
@@ -71,8 +70,6 @@ stopTimerButton.addEventListener("click", async () => {
     timerDuration = timerValue;
     displayTimer(timerDuration, 0);
 });
-
-
 
 // Button to set custom time - 15 minutes
 let minuteButton15 = document.getElementById("15minutes");
@@ -200,8 +197,7 @@ function updateFocusMode(focusStatus, disable) {
     }
 }
 
-
-//Utility - 
+// Utility - Format the timer display with two digits for both minutes and seconds
 function displayTimer(minutes, seconds) {
     var secondsFormatted;
         var minutesFormatted;
