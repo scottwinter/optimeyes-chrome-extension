@@ -68,12 +68,35 @@ function checkblockedUrls(blockList){
     });
 
     if(blockMatch === true){
+      
+      // var blockPageContents = 
+      // '<html><head>'+
+      // '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'+
+      // '<link rel="stylesheet" href="css/style.css" />'+
+      // '<title>Focus Companion</title></head><body><h1>You are in focus mode - With document.write()</h1>'+
+      // '<p>This site is blocked while in focus mode.  Please get back to work.</p></body></html>';
+
+      // TODO randomly select quote text from list 
+      var quoteText = '"A year from now you may wish you had started today." - Karen Lamb';
       var blockPageContents = 
-      '<html><head>'+
-      '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'+
-      '<link rel="stylesheet" href="css/style.css" />'+
-      '<title>Focus Companion</title></head><body><h1>You are in focus mode - With document.write()</h1>'+
-      '<p>This site is blocked while in focus mode.  Please get back to work.</p></body></html>';
+      '<!DOCTYPE html><html lang="en"><head>'+
+      '<meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0">'+
+          // '<script src="../assets/fontawesome/js/all.js"></script>'+
+          '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'+
+          '<link rel="stylesheet" href="../css/blocksitestyle.css" />'+
+          '<style>html {text-align: center;font-family: Arial, Helvetica, sans-serif;}'+
+          '.container {box-sizing: border-box;padding: 16px;}'+
+          'h1 {padding-top: 50px;}'+
+          '#quote {font-size: 2em;padding-top: 50px;}'+
+          '#note {font-size: 1em;padding-top: 20px;}</style>'+
+          '<title>Focus Companion</title>'+
+      '</head><body>'+
+          '<h1><i class="fa-solid fa-ban"></i>Don\'t Get Distracted From Your Goals<i class="fa-solid fa-ban"></i></h1>'+
+          '<h3>This site is blocked while focus mode is on</h2>'+
+          `<div id="quote">${quoteText}</div>`+
+          '<div id="note"><i class="fa-solid fa-comment"></i>If you feel this site should not be blocked, open the extention, visit the settings page and update the blocked list.</div>'+
+      '</body></html>';
+
 
       document.open();
       document.write(blockPageContents);
