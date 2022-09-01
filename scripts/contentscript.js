@@ -36,13 +36,13 @@ function checkFocusStatus() {
 
 //BLOCK THE ENTIRE DOMAIN WITH THE FOLLOWING FUNCTION
 function checkblockedUrls(blockList){
-  chrome.storage.local.get(['focusEnabled'], function(result) {      
-    if(result.focusEnabled === undefined){
-        focusEnabled = false;
-    } else {
-        focusEnabled = result.focusEnabled;
-    }       
-  });
+  // chrome.storage.session.get(['focusEnabled'], function(result) {      
+  //   if(result.focusEnabled === undefined){
+  //       focusEnabled = false;
+  //   } else {
+  //       focusEnabled = result.focusEnabled;
+  //   }       
+  // });
   // chrome.runtime.sendMessage({ cmd: 'GET_FOCUS' }, response => {
   //   focusEnabled = response.focus;
   // });
@@ -76,7 +76,7 @@ function checkblockedUrls(blockList){
       // '<title>Focus Companion</title></head><body><h1>You are in focus mode - With document.write()</h1>'+
       // '<p>This site is blocked while in focus mode.  Please get back to work.</p></body></html>';
 
-      // TODO randomly select quote text from list 
+      // TODO randomly select quote text from list - LATEST CODE HERE
       var quoteText = '"A year from now you may wish you had started today." - Karen Lamb';
       var blockPageContents = 
       '<!DOCTYPE html><html lang="en"><head>'+

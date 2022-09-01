@@ -36,6 +36,38 @@ chrome.runtime.onStartup.addListener(function () {
     chrome.storage.local.set({focusEnabled: false});
 });
 
+// chrome.tabs.query({
+//         active: true,
+//         lastFocusedWindow: true
+//     }, 
+//     function(tabs) {
+//         // and use that tab to fill in out title and url
+//         var tab = tabs[0];
+//         console.log(tab.url);
+//         // alert(tab.url);
+//     }
+// );
+
+// SAMPLE CODE to get active tab URL change.
+// Seems to work.  Maybe move domain check to this script/method
+chrome.tabs.onUpdated.addListener(
+    function(tabId, changeInfo, tab) {
+      // read changeInfo data and do something with it
+      // like send the new url to contentscripts.js
+      if (changeInfo.url) {
+        // chrome.tabs.sendMessage( tabId, {
+        //   message: 'hello!',
+        //   url: changeInfo.url
+        // })
+        // chrome.tabs.update(tabId, {url: "../blockpage.html"});
+        console.log(changeInfo.url);
+      }
+    }
+  );
+
+
+
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     if (request.cmd === 'TOGGLE_FOCUS') {       
