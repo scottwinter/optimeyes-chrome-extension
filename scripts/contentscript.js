@@ -68,7 +68,15 @@ function checkblockedUrls(blockList){
     });
 
     if(blockMatch === true){
-      
+      // blocked site match.  Sent message to backgroud script to redirect to internal blocked site page
+      chrome.runtime.sendMessage({blockedSite: "true"}, (response) => {
+        console.log("This is the blocked site message sender");
+        console.log(response.message);
+      });
+
+      // TODO send message to background script to redirct to internall blocked page.
+
+
       // var blockPageContents = 
       // '<html><head>'+
       // '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'+
@@ -103,18 +111,6 @@ function checkblockedUrls(blockList){
       document.close();
       document.documentElement.scrollTop = 0;
 
-      // TODO Attempt to do a overlay of the blocked website
-
-      // const el = document.createElement('div');
-      // el.setAttribute(
-      //   'style',
-      //   'position: fixed; display: block; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 10;  cursor: pointer;',
-      // );
-      // el.setAttribute('id', 'blockedsite')
-      // el.textContent = 'This site is blocked';
-
-      // const body = document.body;
-      // body.appendChild(el);
     }
   }
 }
