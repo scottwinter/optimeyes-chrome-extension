@@ -10,7 +10,7 @@ class Domain {
 class UI {
     static displayDomains() {
         let domains;
-        chrome.storage.local.get(['domainBlocklist'], function(result) {      
+        chrome.storage.sync.get(['domainBlocklist'], function(result) {      
             console.log("result form storage: " + result);  
             if(result.domainBlocklist === undefined){
                 domains = [];
@@ -63,7 +63,7 @@ let domains;
 // Store Class: Handles Storage
 class Store {
     static getDomains() {      
-        chrome.storage.local.get(['domainBlocklist'], function(result) {      
+        chrome.storage.sync.get(['domainBlocklist'], function(result) {      
             if(result.domainBlocklist === undefined){
                 domains = [new Domain("domain 1", "1")];
             } else {
@@ -73,7 +73,7 @@ class Store {
     }
 
     static addDomain(domain) {
-        chrome.storage.local.get(['domainBlocklist'], function(result) {      
+        chrome.storage.sync.get(['domainBlocklist'], function(result) {      
             console.log("result form storage: " + result);  
             if(result.domainBlocklist === undefined){
                 domains = [];
@@ -82,12 +82,12 @@ class Store {
             }    
             
             domains.push(domain);
-            chrome.storage.local.set({domainBlocklist: domains});
+            chrome.storage.sync.set({domainBlocklist: domains});
         });      
     }
 
     static removeDomain(domainName) {
-        chrome.storage.local.get(['domainBlocklist'], function(result) {      
+        chrome.storage.sync.get(['domainBlocklist'], function(result) {      
             if(result.domainBlocklist === undefined){
                 domains = [];
             } else {
@@ -99,7 +99,7 @@ class Store {
                     domains.splice(index, 1);
                 }
             });
-            chrome.storage.local.set({domainBlocklist: domains});
+            chrome.storage.sync.set({domainBlocklist: domains});
         });   
     }
 }
@@ -165,7 +165,7 @@ document.querySelector('#domain-list').addEventListener('click', (e) => {
 
 // document.querySelector('#clear').addEventListener('click', (e) => {
 //     domains = [];
-//     chrome.storage.local.set({domainBlocklist: domains}, function() {
+//     chrome.storage.sync.set({domainBlocklist: domains}, function() {
 //         UI.displayDomains();
 //         console.log('List cleared.');
 //     });
@@ -220,12 +220,12 @@ document.querySelector('#domain-list').addEventListener('click', (e) => {
 // let saveButton = document.getElementById("save");
 // saveButton.addEventListener("click", async () => {
 //     console.log("Items saved to storage.");
-//     chrome.storage.local.set({domainBlocklist: blockArray});
+//     chrome.storage.sync.set({domainBlocklist: blockArray});
 // });
 
 
 // function loadItemsFromStorage() {
-//     chrome.storage.local.get(['domainBlocklist'], function(result) {
+//     chrome.storage.sync.get(['domainBlocklist'], function(result) {
 //         console.log("Items retrieved from storage.");
 //         console.log("Items: " + result.domainBlocklist);
 //         if(result){

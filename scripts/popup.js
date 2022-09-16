@@ -9,11 +9,11 @@ onPageLoad();
 document.querySelector("#StartTimer")
 
 function onPageLoad() {
-    chrome.storage.local.get(['storedTimerValue'], function(result) {      
-        if(result.storedTimerValue === undefined){
+    chrome.storage.local.get(['startingtTimerValue'], function(result) {      
+        if(result.startingtTimerValue === undefined){
             timerValue = defaultTimerValue;
         } else {
-            timerValue = result.storedTimerValue;
+            timerValue = result.startingtTimerValue;
         } 
         // for testing only
         // timerValue = defaultTimerValue;
@@ -74,33 +74,33 @@ stopTimerButton.addEventListener("click", async () => {
 // Button to set custom time - 15 minutes
 let minuteButton15 = document.getElementById("15minutes");
 minuteButton15.addEventListener("click", async () => {
-    chrome.storage.local.set({storedTimerValue: 15});
+    chrome.storage.local.set({startingtTimerValue: 15});
     onPageLoad();
-    displayTimer(15, 0);
+    // displayTimer(15, 0);
 });
 
 // Button to set custom time - 15 minutes
 let minuteButton30 = document.getElementById("30minutes");
 minuteButton30.addEventListener("click", async () => {
-    chrome.storage.local.set({storedTimerValue: 30});
+    chrome.storage.local.set({startingtTimerValue: 30});
     onPageLoad();
-    displayTimer(15, 0);
+    // displayTimer(15, 0);
 });
 
 // Button to set custom time - 15 minutes
 let minuteButton45 = document.getElementById("45minutes");
 minuteButton45.addEventListener("click", async () => {
-    chrome.storage.local.set({storedTimerValue: 45});
+    chrome.storage.local.set({startingtTimerValue: 45});
     onPageLoad();
-    displayTimer(15, 0);
+    // displayTimer(15, 0);
 });
 
 // Button to set custom time - 15 minutes
 let minuteButton60 = document.getElementById("60minutes");
 minuteButton60.addEventListener("click", async () => {
-    chrome.storage.local.set({storedTimerValue: 60});
+    chrome.storage.local.set({startingtTimerValue: 60});
     onPageLoad();
-    displayTimer(15, 0);
+    // displayTimer(15, 0);
 });
 
 // Settings button

@@ -33,7 +33,9 @@ chrome.runtime.onStartup.addListener(function () {
     /* TODO set focusEnabled back to false when extension/browser loads.
     Set the false value in local storage.
     */
-    chrome.storage.local.set({focusEnabled: false});
+    chrome.storage.local.clear(() => {
+        console.log('All local storage data has been cleared.');
+    });
 });
 
 // chrome.tabs.query({
