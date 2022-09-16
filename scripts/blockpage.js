@@ -4,9 +4,10 @@ loadQuotes();
 randomQuotes();
 
 function randomQuotes(){
-    document.querySelector("#quote").innerHTML = quoteArray[Math.floor(Math.random() * quoteArray.length)];
-    // Generate random quote from list;
-
+    // generate randome number from 0 to array length -1
+    var randomQuoteNum = Math.floor(Math.random() * quoteArray.length);
+    // Get the quote string form array and update html
+    document.querySelector("#quote").innerHTML = quoteArray[randomQuoteNum];
 }
 
 function loadQuotes(){
