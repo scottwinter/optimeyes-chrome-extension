@@ -21,16 +21,20 @@
               <button type="submit" value="Block" class="btn btn-primary-custom btn-block">Block</button>
         </form>
         <!-- <table class="table table-striped mt-5"> -->
-        <table class="table table-striped mt-3">
-          <thead>
-            <tr>
-              <th>Blocked Domains</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="domain-list"></tbody>
-        </table>
-
+        <div class="bold-text" id="blocked-site-table-header">
+          <p>Blocked Domains</p>
+        </div>
+        <div class="tableFixHead">          
+          <table class="table table-striped">
+            <!-- <thead>
+              <tr>
+                <th>Blocked Domains</th>
+                <th></th>
+              </tr>
+            </thead> -->
+            <tbody id="domain-list"></tbody>
+          </table>
+        </div>
     </div>
   </div>
   <script src="scripts/settings.js"></script>

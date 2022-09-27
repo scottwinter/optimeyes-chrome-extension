@@ -95,6 +95,22 @@ input:checked + .slider:before {
 
 /* END Switch slider */
 
+/* General formatting */
+
+#blocked-site-table-header {
+  padding-top: 20px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.align-right {
+  text-align: right;
+}
+
 .page-icon  {
   color: #457b9d;
 }
@@ -114,7 +130,6 @@ input:checked + .slider:before {
   display: inline;
   vertical-align: middle;
 }
-
 
 #focus-label {
   display: inline;
@@ -139,6 +154,8 @@ input:checked + .slider:before {
   font-size: 4em;
   font-weight: bold;
 }
+
+/* --------------- Button formatting ------------------ */
 
 #timer-btn {
   text-align: center;
@@ -167,3 +184,19 @@ input:checked + .slider:before {
   background-color: #e63946;
   /* color: white; */
  }
+
+ /* --------------- Table formatting ------------------ */
+
+.tableFixHead {
+  overflow-y: auto;
+  height: 400px;
+}
+.tableFixHead thead th {
+  /* position: sticky; */
+  top: 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}

@@ -17,6 +17,6 @@ function loadQuotes(){
         "\"The bad news is time flies. The good news is you're the pilot.\" - Michael Altshuler",
         "\"Success is not final, failure is not fatal: it is the courage to continue that counts.\" - Winston Churchill",
         "\"No matter what people tell you, words and ideas can change the world.\" - Robin Williams",
-        "\"I'm not going to continue knocking that old door that doesn't open for me. I'm going to create my own door and walk through that.\" - Ava DuVernay"
+        "\"I'm not going to continue knocking on that old door that doesn't open for me. I'm going to create my own door and walk through that.\" - Ava DuVernay"
     ]
 }

@@ -28,7 +28,7 @@ class UI {
 
         row.innerHTML = `
         <td>${domain.domainName}</td>
-        <td><a href="#" class="btn btn-danger-custom btn-sm delete">X</a></td>
+        <td class="align-right"><a href="#" class="btn btn-danger-custom btn-sm delete">X</a></td>
         `;
 
         list.appendChild(row);
@@ -120,7 +120,7 @@ document.querySelector('#domain-form').addEventListener('submit', (e) => {
 
     // Validate
     if(domainName === '') {
-        UI.showAlert('Please fill in all fields', 'danger');
+        // UI.showAlert('Please fill in all fields', 'danger');
     } else {
         // Clean up and format the domain to be saved
         let domainNameTrim = domainName.trim();
@@ -144,7 +144,7 @@ document.querySelector('#domain-form').addEventListener('submit', (e) => {
         Store.addDomain(domain);
 
         // Show success message
-        UI.showAlert('Domain Added', 'success');
+        // UI.showAlert('Domain Added', 'success');
 
         // Clear fields
         UI.clearFields();
@@ -160,7 +160,7 @@ document.querySelector('#domain-list').addEventListener('click', (e) => {
     Store.removeDomain(e.target.parentElement.previousElementSibling.textContent);
 
     // Show success message
-    UI.showAlert('Domain Removed', 'success');
+    // UI.showAlert('Domain Removed', 'success');
 });
 
 // document.querySelector('#clear').addEventListener('click', (e) => {
