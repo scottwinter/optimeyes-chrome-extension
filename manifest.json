@@ -1,6 +1,6 @@
 {
-  "name": "Focus Companion",
-  "description": "Build an Extension!",
+  "name": "OptimEyes",
+  "description": "Helps you stay focused, optimize your time, and keep moving in the right direction toward your goals.",
   "version": "1.0",
   "manifest_version": 3,
   "background": {

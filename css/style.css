@@ -71,11 +71,11 @@ html {
 }
 
 input:checked + .slider {
-  background-color: #216bf3;
+  background-color: #457b9d;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #216bf3;
+  box-shadow: 0 0 1px #457b9d;
 }
 
 input:checked + .slider:before {
@@ -94,6 +94,27 @@ input:checked + .slider:before {
 }
 
 /* END Switch slider */
+
+.page-icon  {
+  color: #457b9d;
+}
+
+.form-inline {
+  display: inline;
+}
+
+.form-inline input {
+  display: inline;
+  vertical-align: middle;
+  width: 250px;
+}
+
+/* Style the submit button */
+.form-inline button {
+  display: inline;
+  vertical-align: middle;
+}
+
 
 #focus-label {
   display: inline;
@@ -122,3 +143,27 @@ input:checked + .slider:before {
 #timer-btn {
   text-align: center;
 }
+
+.btn-light-custom {
+  background-color: #a8dadc;
+}
+
+.btn-primary-custom {
+ background-color: #1d3557;
+ color: white;
+}
+
+.btn-primary-custom:hover {
+  background-color: #457b9d;
+  /* color: white; */
+ }
+
+.btn-danger-custom {
+  background-color: #e63946;
+  color: white;
+ }
+
+.btn-danger-custom:hover {
+  background-color: #e63946;
+  /* color: white; */
+ }

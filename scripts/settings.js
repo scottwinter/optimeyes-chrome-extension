@@ -28,7 +28,7 @@ class UI {
 
         row.innerHTML = `
         <td>${domain.domainName}</td>
-        <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
+        <td><a href="#" class="btn btn-danger-custom btn-sm delete">X</a></td>
         `;
 
         list.appendChild(row);
