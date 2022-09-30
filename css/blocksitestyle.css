@@ -19,6 +19,29 @@ html {
     color: white;
   }
 
+  #h1-padding {
+    padding-bottom: 50px;
+  }
+
+  #focus-container {
+    display: inline;
+  }
+
+  #time-remaining {
+    color: white;
+    font-size: 1.5em;
+    display: inline;
+    vertical-align: middle;
+    padding-right: 20px;
+  }
+
+  #focus-time {
+    color: white;
+    font-size: 5em;
+    display: inline;
+    vertical-align: middle;
+  }
+
   blockquote {
     /* background: #f9f9f9; */
     border-left: 10px solid #ccc;
@@ -47,16 +70,26 @@ html {
   }
 
   #donate {
-    font-size: 1.2em;
-    padding-top: 20px;
+    font-size: 1em;
+    padding-top: 100px;
     color: white;
   }
 
+  #donate a {
+    color: white;
+    text-decoration: underline;
+  }
+
   #note {
-    font-size: 1em;
-    padding-top: 20px;
+    font-size: .75em;
+    padding-top: 5px;
     color: white;
   }
+
+  /* .icon-size {
+    width: 32px;
+    color: white;
+  } */
 
   /* #stop {
     text-align: center;
