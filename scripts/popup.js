@@ -51,6 +51,7 @@ focusModeToggle.addEventListener("click", async () => {
 // Button to start the timer
 let startTimerButton = document.getElementById("StartTimer");
 startTimerButton.addEventListener("click", async () => {
+    chrome.storage.local.set({focusTimerStarted: true});
     startTimerButton.style.display = "none";
     document.querySelector("#StopTimer").style.display = "inline";
     setTimerCountDown(timerValue);
@@ -60,6 +61,7 @@ startTimerButton.addEventListener("click", async () => {
 // Button to stop the timer
 let stopTimerButton = document.getElementById("StopTimer");
 stopTimerButton.addEventListener("click", async () => {
+    chrome.storage.local.set({focusTimerStarted: true});
     stopTimerButton.style.display = "none";
     document.querySelector("#StartTimer").style.display = "inline";
     chrome.storage.local.set({countdown: 0});
@@ -165,6 +167,7 @@ function startOrResumeTimer() {
             displayTimer(minutes, seconds);
             startTimer(countDownDate);
         } else {
+            chrome.storage.local.set({focusTimerStarted: false});
             displayTimer(timerValue, 0);
         }
     });
