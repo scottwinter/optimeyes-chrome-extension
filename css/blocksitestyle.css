@@ -70,8 +70,8 @@ html {
   }
 
   #donate {
+    padding-top: 5px;
     font-size: 1em;
-    padding-top: 100px;
     color: white;
   }
 
@@ -82,8 +82,12 @@ html {
 
   #note {
     font-size: .75em;
-    padding-top: 5px;
+    padding-top: 100px;
     color: white;
+  }
+  
+  #donation-button {
+    width: 150px;
   }
 
   /* .icon-size {
