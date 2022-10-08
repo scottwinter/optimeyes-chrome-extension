@@ -182,7 +182,6 @@ input:checked + .slider:before {
 
 .btn-primary-custom:hover {
   background-color: #457b9d;
-  /* color: white; */
  }
 
 .btn-danger-custom {
@@ -192,7 +191,6 @@ input:checked + .slider:before {
 
 .btn-danger-custom:hover {
   background-color: #e63946;
-  /* color: white; */
  }
 
  /* --------------- Table formatting ------------------ */

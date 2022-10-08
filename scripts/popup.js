@@ -3,7 +3,7 @@ let countDownDate = 0;
 let currentInterval;
 let focusEnabled = false;
 let timerValue;
-let defaultTimerValue = 1;
+let defaultTimerValue = 60;
 
 onPageLoad();
 document.querySelector("#StartTimer")
@@ -78,7 +78,6 @@ let minuteButton15 = document.getElementById("15minutes");
 minuteButton15.addEventListener("click", async () => {
     chrome.storage.local.set({startingtTimerValue: 15});
     onPageLoad();
-    // displayTimer(15, 0);
 });
 
 // Button to set custom time - 15 minutes
@@ -86,7 +85,6 @@ let minuteButton30 = document.getElementById("30minutes");
 minuteButton30.addEventListener("click", async () => {
     chrome.storage.local.set({startingtTimerValue: 30});
     onPageLoad();
-    // displayTimer(15, 0);
 });
 
 // Button to set custom time - 15 minutes
@@ -94,7 +92,6 @@ let minuteButton45 = document.getElementById("45minutes");
 minuteButton45.addEventListener("click", async () => {
     chrome.storage.local.set({startingtTimerValue: 45});
     onPageLoad();
-    // displayTimer(15, 0);
 });
 
 // Button to set custom time - 15 minutes
@@ -102,16 +99,7 @@ let minuteButton60 = document.getElementById("60minutes");
 minuteButton60.addEventListener("click", async () => {
     chrome.storage.local.set({startingtTimerValue: 60});
     onPageLoad();
-    // displayTimer(15, 0);
 });
-
-// Settings button
-// let settingsButton = document.querySelector("#settings");
-// settingsButton.addEventListener("click", async () => {
-//     chrome.tabs.create({
-//         url: 'settings.html'
-//       });
-// });
 
 function startTimer(countDownDate) {    
     chrome.storage.local.set({focusEnabled: true});

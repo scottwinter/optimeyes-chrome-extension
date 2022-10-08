@@ -54,14 +54,13 @@ class UI {
 
     static clearFields() {
         document.querySelector('#domain').value = '';
-        // document.querySelector('#domainId').value = '';
     }
 }
 
 let domains;
 
-// Store Class: Handles Storage
-class Store {
+// Storage Class: Handles Storage
+class Storage {
     static getDomains() {      
         chrome.storage.sync.get(['domainBlocklist'], function(result) {      
             if(result.domainBlocklist === undefined){
@@ -116,7 +115,6 @@ document.querySelector('#domain-form').addEventListener('submit', (e) => {
 
     // Get form values
     const domainName = document.querySelector('#domain').value;
-    // const domainId = document.querySelector('#domainId').value;
 
     // Validate
     if(domainName === '') {
@@ -134,127 +132,15 @@ document.querySelector('#domain-form').addEventListener('submit', (e) => {
           domainPart = domainParts[0];
         }
 
-        // Instatiate book
         const domain = new Domain(domainPart, null);
-
-        // Add Book to UI
         UI.addDomainToList(domain);
-
-        // Add book to store
-        Store.addDomain(domain);
-
-        // Show success message
-        // UI.showAlert('Domain Added', 'success');
-
-        // Clear fields
+        Storage.addDomain(domain);
         UI.clearFields();
     }
 });
 
-// Event: Remove a Book
+// Event: Remove a domain
 document.querySelector('#domain-list').addEventListener('click', (e) => {
-// Remove book from UI
     UI.deleteDomain(e.target);
-
-    // Remove book from store
-    Store.removeDomain(e.target.parentElement.previousElementSibling.textContent);
-
-    // Show success message
-    // UI.showAlert('Domain Removed', 'success');
+    Storage.removeDomain(e.target.parentElement.previousElementSibling.textContent);
 });
-
-// document.querySelector('#clear').addEventListener('click', (e) => {
-//     domains = [];
-//     chrome.storage.sync.set({domainBlocklist: domains}, function() {
-//         UI.displayDomains();
-//         console.log('List cleared.');
-//     });
-// });
-
-
-
-
-
-
-
-
-
-
-
-// const blockArray = [];
-
-// loadItemsFromStorage();
-
-// // Settings button
-// let addButton = document.getElementById("addToBlockList");
-// addButton.addEventListener("click", async () => {
-//     let domainToAdd = document.getElementById("domainToAdd").value;
-
-//     blockArray.push(domainToAdd);
-
-//     populateSettings();
-//     // let blockListUl = document.getElementById("blockList");
-//     // const li = document.createElement("li");
-//     // // + '<button type="button" class="btn btn-secondary" id="removeItem">Remove</button>'
-//     // li.appendChild(document.createTextNode(domainToAdd));
-//     // li.setAttribute("index", blockArray.length);
-//     // blockListUl.appendChild(li);
-
-//     // document.getElementById("testing").innerHTML = 'Array elements: ' + blockArray.length;
-    
-// });
-
-
-// let removeButton = document.getElementById("clearItems");
-// removeButton.addEventListener("click", async () => {
-//     let blockListUl = document.getElementById("blockList");
-//     while (blockListUl.firstChild) {
-//         blockListUl.removeChild(blockListUl.firstChild);
-//     }
-    
-//     blockArray.length = 0;
-// });
-
-
-
-// let saveButton = document.getElementById("save");
-// saveButton.addEventListener("click", async () => {
-//     console.log("Items saved to storage.");
-//     chrome.storage.sync.set({domainBlocklist: blockArray});
-// });
-
-
-// function loadItemsFromStorage() {
-//     chrome.storage.sync.get(['domainBlocklist'], function(result) {
-//         console.log("Items retrieved from storage.");
-//         console.log("Items: " + result.domainBlocklist);
-//         if(result){
-//             result.domainBlocklist.forEach(item => {
-//                 console.log("Adding items to array,  item " + item);
-//                 blockArray.push(item);
-//             });            
-//         }
-//         populateSettings();
-//     });
-
-// }
-
-// function populateSettings() {
-//     let blockListUl = document.getElementById("blockList");
-
-//     console.log('Inside populateSettings()');
-
-//     while (blockListUl.firstChild) {
-//         blockListUl.removeChild(blockListUl.firstChild);
-//     }
-
-//     console.log('Inside populateSettings() after clear list items');
-//     blockArray.forEach(item => {
-//         console.log('Item in forEach: ' + item);
-//         const li = document.createElement("li");
-//         // + '<button type="button" class="btn btn-secondary" id="removeItem">Remove</button>'
-//         li.appendChild(document.createTextNode(item));
-//         blockListUl.appendChild(li);
-//     });
-//     console.log('Item added to array:  Array size = ' + blockArray.length);
-// }

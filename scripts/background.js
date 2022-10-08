@@ -1,71 +1,15 @@
-// let timerID;
-// let timerTime;
-
-// chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-//   if (request.cmd === 'START_TIMER') {
-//     timerTime = new Date(request.when);
-//     timerID = setTimeout(() => {
-//        // the time is app, alert the user.
-//     }, timerTime.getTime() - new Date());
-//     sendResponse({ time: ''});
-//   } else if (request.cmd === 'GET_TIME') {
-//     sendResponse({ time: timerTime });
-//   }
-// });
-
 let countDownDate = 0;
 let now;
 let distance;
 
 let focusEnabled = false;
 
-/* 
-TODO save focusEnabled in local storage instead of background.js.  
-Then in background.js, set the focusEnabled value in storage to false every time extension loads.
-That way when the extension loads when the browser is opened, the value will be set back
-to false so focus mode does not remain on after brower closing.
-
-Need to test this out to see if it will work or if it will reset the focusEnabled to false ever
-time the background scripe wakes up again.
-*/
-
 chrome.runtime.onStartup.addListener(function () {
-    /* TODO set focusEnabled back to false when extension/browser loads.
-    Set the false value in local storage.
-    */
+   // Clear local storage to reset when browser is closed and opened new.
     chrome.storage.local.clear(() => {
         console.log('All local storage data has been cleared.');
     });
 });
-
-// chrome.tabs.query({
-//         active: true,
-//         lastFocusedWindow: true
-//     }, 
-//     function(tabs) {
-//         // and use that tab to fill in out title and url
-//         var tab = tabs[0];
-//         console.log(tab.url);
-//         // alert(tab.url);
-//     }
-// );
-
-// SAMPLE CODE to get active tab URL change.
-// Seems to work.  Maybe move domain check to this script/method
-// chrome.tabs.onUpdated.addListener(
-//     function(tabId, changeInfo, tab) {
-//       // read changeInfo data and do something with it
-//       // like send the new url to contentscripts.js
-//       if (changeInfo.url) {
-//         // chrome.tabs.sendMessage( tabId, {
-//         //   message: 'hello!',
-//         //   url: changeInfo.url
-//         // })
-//         // chrome.tabs.update(tabId, {url: "../blockpage.html"});
-//         console.log(changeInfo.url);
-//       }
-//     }
-//   );
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {      
     if (request.blockedSite === "true"){
@@ -75,7 +19,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         sendResponse({message: "site blocked"});
     }
     });
-
 
 async function getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true };
