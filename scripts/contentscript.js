@@ -46,7 +46,7 @@ function checkblockedUrls(blockList){
         domainPart = domainParts[0];
       }
 
-      if(current.includes(domainPart) && blockMatch === false){
+      if(current.toLowerCase().includes(domainPart.toLowerCase()) && blockMatch === false){
         blockMatch = true;
       }
     });

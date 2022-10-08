@@ -132,7 +132,8 @@ document.querySelector('#domain-form').addEventListener('submit', (e) => {
           domainPart = domainParts[0];
         }
 
-        const domain = new Domain(domainPart, null);
+        const domain = new Domain(domainPart.toLowerCase(), null);
+        
         UI.addDomainToList(domain);
         Storage.addDomain(domain);
         UI.clearFields();
