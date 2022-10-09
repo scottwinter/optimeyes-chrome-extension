@@ -132,6 +132,9 @@ document.querySelector('#domain-form').addEventListener('submit', (e) => {
           domainPart = domainParts[0];
         }
 
+        // TODO Get list of domains and check if entered domain already exists before adding it
+        // If domain already exists, decide if to show alert or just do nothing.
+
         const domain = new Domain(domainPart.toLowerCase(), null);
         
         UI.addDomainToList(domain);
