@@ -6,7 +6,7 @@ let timerValue;
 let defaultTimerValue = 60;
 
 onPageLoad();
-document.querySelector("#StartTimer")
+// document.querySelector("#StartTimer")
 
 function onPageLoad() {
     chrome.storage.local.get(['startingtTimerValue'], function(result) {      
@@ -17,9 +17,9 @@ function onPageLoad() {
         } 
         // for testing only
         // timerValue = defaultTimerValue;
-        displayTimer(timerValue, 0);
-        startOrResumeTimer();
+        displayTimer(timerValue, 0);        
         checkFocusStatus();   
+        startOrResumeTimer();
     });    
 }
 
@@ -101,6 +101,13 @@ minuteButton60.addEventListener("click", async () => {
     onPageLoad();
 });
 
+// Button to set custom time - 15 minutes
+let minuteButton120 = document.getElementById("120minutes");
+minuteButton120.addEventListener("click", async () => {
+    chrome.storage.local.set({startingtTimerValue: 120});
+    onPageLoad();
+});
+
 function startTimer(countDownDate) {    
     chrome.storage.local.set({focusEnabled: true});
     
@@ -113,7 +120,7 @@ function startTimer(countDownDate) {
         // Find the distance between now and the count down date
         let distance = countDownDate - now;
 
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let minutes = Math.floor(distance / 60000);
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Display the result in the element with id="demo"
@@ -148,7 +155,7 @@ function startOrResumeTimer() {
             // Find the distance between now and the count down date
             let distance = countDownDate - now;
 
-            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let minutes = Math.floor(distance / 60000);
             let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Display the result in the element with id="demo"
@@ -181,10 +188,13 @@ function updateFocusMode(focusStatus, disable) {
     focusModeToggle.checked = focusStatus;
     focusModeToggle.disabled = disable;
     var focusModeStatus = document.querySelector("#focus-status");
+    var focusModeLabel = document.querySelector("#turn-focus-on-label");
     if(focusStatus === true) {
         focusModeStatus.innerHTML = "On"
+        focusModeLabel.innerHTML = "Distracting websites are blocked."
     } else {
-        focusModeStatus.innerHTML = "Off"
+        focusModeStatus.innerHTML = "Off"        
+        focusModeLabel.innerHTML = "Use the toggle or timer to block distracting websites."
     }
 }
 
@@ -205,4 +215,11 @@ function displayTimer(minutes, seconds) {
         }
 
         document.getElementById("timer").innerHTML = minutesFormatted + ":" + secondsFormatted;
+}
+
+
+function millisToMinutesAndSeconds(millis) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }

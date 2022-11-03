@@ -42,10 +42,10 @@ class UI {
 
     static showAlert(message, className) {
         const div = document.createElement('div');
-        div.className = `alert alert-${className}`;
+        div.className = `alert alert-fixed alert-${className}`;
         div.appendChild(document.createTextNode(message));
-        const container = document.querySelector('.container');
-        const form = document.querySelector('#book-form');
+        const container = document.querySelector('#body-container');
+        const form = document.querySelector('#blocked-site-table-header');
         container.insertBefore(div, form);
 
         // Vanish in 3 seconds
@@ -132,11 +132,34 @@ document.querySelector('#domain-form').addEventListener('submit', (e) => {
           domainPart = domainParts[0];
         }
 
-        const domain = new Domain(domainPart.toLowerCase(), null);
-        
-        UI.addDomainToList(domain);
-        Storage.addDomain(domain);
-        UI.clearFields();
+        let domains;
+        chrome.storage.sync.get(['domainBlocklist'], function(result) {      
+            if(result.domainBlocklist === undefined){
+                domains = [new Domain("domain 1", "1")];
+            } else {
+                domains = result.domainBlocklist;
+            }      
+            
+            let domainExists = false;
+            for (let i = 0; i < domains.length; i++) {
+                // check domain name is same as item in array
+                if(domainPart.toLowerCase() === domains[i].domainName.toLowerCase()){
+                    domainExists = true;
+                    break;
+                }
+            }
+
+            // If no matches, add domain to list
+            if(domainExists === true) {
+                UI.showAlert('Domain already exists in the block list', 'danger');
+            } else {
+                const domain = new Domain(domainPart.toLowerCase(), null);
+            
+                UI.addDomainToList(domain);
+                Storage.addDomain(domain);
+                UI.clearFields();
+            }        
+        }); 
     }
 });
 

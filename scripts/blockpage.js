@@ -27,8 +27,6 @@ function onPageLoad() {
             updateTimerText();  
         } 
         
-        console.log("--- focusTimerStarted value: " + focusViaTimer);
-
         if(focusViaTimer === true) {
             chrome.storage.local.get(['startingtTimerValue'], function(result) {      
                 if(result.startingtTimerValue === undefined){
@@ -55,7 +53,7 @@ function startTimer(countDownDate) {
         // Find the distance between now and the count down date
         let distance = countDownDate - now;
 
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let minutes = Math.floor(distance / 60000);
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Display the result in the element with id="demo"
@@ -83,7 +81,7 @@ function startOrResumeTimer() {
             // Find the distance between now and the count down date
             let distance = countDownDate - now;
 
-            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let minutes = Math.floor(distance / 60000);
             let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Display the result in the element with id="demo"
@@ -141,6 +139,10 @@ function loadQuotes(){
         "\"The bad news is time flies. The good news is you're the pilot.\" - Michael Altshuler",
         "\"Success is not final, failure is not fatal: it is the courage to continue that counts.\" - Winston Churchill",
         "\"No matter what people tell you, words and ideas can change the world.\" - Robin Williams",
-        "\"I'm not going to continue knocking on that old door that doesn't open for me. I'm going to create my own door and walk through that.\" - Ava DuVernay"
+        "\"I'm not going to continue knocking on that old door that doesn't open for me. I'm going to create my own door and walk through that.\" - Ava DuVernay",
+        "\"It is better to fail in originality than to succeed in imitation.\" - Herman Melville",
+        "\"The road to success and the road to failure are almost exactly the same.\" - Colin R. Davis",
+        "\"Develop success from failures. Discouragement and failure are two of the surest stepping stones to success.\" - Dale Carnegie",
+        "\"The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty.\" - Winston Churchill"
     ]
 }
