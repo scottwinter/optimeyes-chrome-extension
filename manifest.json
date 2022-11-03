@@ -9,10 +9,10 @@
   "content_scripts": [
     {
       "js": ["scripts/contentscript.js"],
-      "matches": ["http://*/*", "https://*/*"]      
+      "matches": ["http://*/*", "https://*/*"]
     }
   ],
-  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "permissions": ["storage", "activeTab"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
