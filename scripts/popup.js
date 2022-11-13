@@ -3,7 +3,7 @@ let countDownDate = 0;
 let currentInterval;
 let focusEnabled = false;
 let timerValue;
-let defaultTimerValue = 60;
+let defaultTimerValue = 1;
 
 onPageLoad();
 // document.querySelector("#StartTimer")
@@ -16,7 +16,7 @@ function onPageLoad() {
             timerValue = result.startingtTimerValue;
         } 
         // for testing only
-        // timerValue = defaultTimerValue;
+        timerValue = defaultTimerValue;
         displayTimer(timerValue, 0);        
         checkFocusStatus();   
         startOrResumeTimer();
@@ -54,6 +54,7 @@ startTimerButton.addEventListener("click", async () => {
     chrome.storage.local.set({focusTimerStarted: true});
     startTimerButton.style.display = "none";
     document.querySelector("#StopTimer").style.display = "inline";
+    createTimerAlarm(timerValue);
     setTimerCountDown(timerValue);
     startOrResumeTimer();
 });
@@ -62,6 +63,7 @@ startTimerButton.addEventListener("click", async () => {
 let stopTimerButton = document.getElementById("StopTimer");
 stopTimerButton.addEventListener("click", async () => {
     chrome.storage.local.set({focusTimerStarted: true});
+    chrome.alarms.clear("timerAlarm");
     stopTimerButton.style.display = "none";
     document.querySelector("#StartTimer").style.display = "inline";
     chrome.storage.local.set({countdown: 0});
@@ -107,6 +109,10 @@ minuteButton120.addEventListener("click", async () => {
     chrome.storage.local.set({startingtTimerValue: 120});
     onPageLoad();
 });
+
+function createTimerAlarm(timerDuration) {
+    chrome.alarms.create("timerAlarm", {delayInMinutes: timerDuration} );
+}
 
 function startTimer(countDownDate) {    
     chrome.storage.local.set({focusEnabled: true});

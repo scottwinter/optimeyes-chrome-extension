@@ -26,3 +26,9 @@ async function getCurrentTab() {
     let [tab] = await chrome.tabs.query(queryOptions);
     return tab;
     }
+
+chrome.alarms.onAlarm.addListener(function(alarm) {
+    
+    chrome.storage.local.set({focusEnabled: false});
+
+    });
