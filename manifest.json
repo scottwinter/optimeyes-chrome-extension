@@ -1,7 +1,7 @@
 {
   "name": "OptimEyes",
   "description": "Helps you stay focused, optimize your time, and keep moving in the right direction toward your goals.",
-  "version": "1.0",
+  "version": "1.0.2",
   "manifest_version": 3,
   "background": {
     "service_worker": "scripts/background.js"
