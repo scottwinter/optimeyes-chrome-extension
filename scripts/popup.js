@@ -3,7 +3,7 @@ let countDownDate = 0;
 let currentInterval;
 let focusEnabled = false;
 let timerValue;
-let defaultTimerValue = 1;
+let defaultTimerValue = 60;
 
 onPageLoad();
 // document.querySelector("#StartTimer")
@@ -16,7 +16,7 @@ function onPageLoad() {
             timerValue = result.startingtTimerValue;
         } 
         // for testing only
-        timerValue = defaultTimerValue;
+        // timerValue = defaultTimerValue;
         displayTimer(timerValue, 0);        
         checkFocusStatus();   
         startOrResumeTimer();

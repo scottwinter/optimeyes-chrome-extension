@@ -28,7 +28,15 @@ async function getCurrentTab() {
     }
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
-    
-    chrome.storage.local.set({focusEnabled: false});
+    if(alarm.name === "timerAlarm") {
+        chrome.storage.local.set({focusEnabled: false});
+        chrome.notifications.create('TimeFinished', {
+            type: 'basic',
+            iconUrl: '../images/optimeyes-logo-48.png',
+            title: 'OptimEyes Focus Timer',
+            message: 'Your focus timer has expired.  Distracting websites are no longer blocked.',
+            priority: 2
+        });
+    }
 
     });
